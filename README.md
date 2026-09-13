@@ -66,13 +66,15 @@ A self-contained, always-on AI desk assistant built on a Raspberry Pi 5 — voic
 ├── main.qml             # touchscreen UI (QML layout)
 ├── ui_main.py            # touchscreen UI entry point — loads main.qml, bridges Python↔QML
 ├── calibrate_mic.py     # run once per microphone to set the silence threshold
-├── capture_photos.py
-├── coco_labels.txt
+├── capture_photos.py    # utility to capture reference photo sets (e.g. for future face/gesture recognition work) — not required for the core assistant to run
+├── coco_labels.txt      # COCO class labels used by presence_loop.py's on-sensor detection model to identify "person"
 ├── requirements.txt
 └── .gitignore
 ```
 
 ## Setup
+
+> Built and tested on **Python 3.13**.
 
 ### 1. Clone and create a virtual environment
 
@@ -103,13 +105,15 @@ If you later run this as a systemd service for headless boot, use an `Environmen
 
 ### 3. Display configuration
 
-The 7" DSI display requires the following in `/boot/firmware/config.txt` under `[all]`:
+Built and tested on Raspberry Pi OS (Debian 13 "trixie"). The 7" DSI display requires the following in `/boot/firmware/config.txt` under `[all]`:
 
 ```
 dtoverlay=vc4-kms-dsi-7inch
 ```
 
 This overlay conflicts with `display_auto_detect=1` — use one or the other, not both. Confirm SSH access is working *before* rebooting with a new display config, in case of display issues.
+
+(On Raspberry Pi OS releases older than "Bookworm," this file is at `/boot/config.txt` instead of `/boot/firmware/config.txt`.)
 
 ### 4. Audio
 
