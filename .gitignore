@@ -1,0 +1,14 @@
+# Secrets
+.env
+*.key
+
+# Python
+__pycache__/
+*.pyc
+
+# Runtime / state files
+*.log
+/tmp/assistant_state.txt
+
+# OS
+.DS_Store
