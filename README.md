@@ -84,7 +84,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-> **Note:** `requirements.txt` isn't generated yet. Before this repo is really "clone and run," add one from the working environment on the Pi (`pip freeze > requirements.txt`). Since `picamera2` (and possibly `PySide6`) are typically installed via `apt` rather than `pip` on Raspberry Pi OS, also list any `sudo apt install python3-...` commands needed alongside it — `pip freeze` alone may not capture those.
+`picamera2` and `PySide6` are installed via `--system-site-packages` from the OS rather than pinned in `requirements.txt` — on a stock Raspberry Pi OS install they should already be present system-wide.
 
 ### 2. Configure API keys
 
@@ -148,7 +148,6 @@ This project was built and tuned against one specific set of hardware. If you're
 
 Things to be aware of if you're setting this up fresh rather than just reading the code:
 
-- **No `requirements.txt` yet** — dependencies aren't pinned or listed yet (see the note in Setup above). Until that's added, expect `ModuleNotFoundError`s and to have to install packages one at a time.
 - **Three processes need to run for the full experience** — the voice pipeline (`wake_loop.py`), presence detection (`presence_loop.py`), and the touchscreen UI (`main.qml`) are separate processes, not one combined app. There's currently no single launcher or systemd setup that starts all three together.
 - **Some assets aren't included** — the ambient home-screen wallpapers, the alarm sound file, and the offline Piper voice model files were intentionally left out (privacy/licensing reasons for the images and audio, file size for the Piper models). Code paths that reference them will fail until you supply your own.
 - **Hardware assumptions throughout** — see the section above. Running this on anything other than the exact mic, speaker, display, and camera used here will likely require some debugging, not just a config change.
