@@ -9,7 +9,7 @@ background, it doesn't need to show you anything.
 
 Setup:
     sudo apt install imx500-all   (if you haven't already, from earlier)
-    Run this alongside wake_loop.py and qml_test.py in its own terminal.
+    Run this alongside wake_loop.py and ui_main.py in its own terminal.
 
 Run:
     python presence_loop.py
